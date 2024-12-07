@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Recensement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Bannière en bleu */
+        .banner {
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        /* Style du formulaire */
+        .form-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: yellow;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ffcc00;
+        }
+
+        .message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .response {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bannière -->
+    <div class="banner">
+        <h1>Formulaire de Recensement</h1>
+        <h2>COMITÉ POUR L’ÉPANOUSSEMENT ACADÉMIQUE</h2>
+        <h2>BUREAU DES ETUDIANTS IITG</h2>
+        <h2>Bureau Communication et Événementielle</h2>
+        <h2>BEBONA Fanel & EDOU BIBANG Brunel</h2>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="form-container">
+        <form id="recensement-form" action="https://formspree.io/f/manyznnv" method="POST">
+            <h3>INFORMATIONS DE L’ÉTUDIANT</h3>
+            <label for="nom">Nom:</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required>
+            <div id="prenomMessage" class="message"></div>
+
+            <label for="date_naissance">Date et lieu de naissance:</label>
+            <input type="text" id="date_naissance" name="date_naissance" required>
+
+            <label for="nationalite">Nationalité:</label>
+            <input type="text" id="nationalite" name="nationalite" required>
+
+            <label for="boursier">Boursier (Oui ou Non):</label>
+            <select id="boursier" name="boursier" required>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="classe">Classe:</label>
+            <select id="classe" name="classe" required>
+                <option value="Licence 1">Licence 1</option>
+                <option value="Licence 2">Licence 2</option>
+                <option value="Licence 3">Licence 3</option>
+                <option value="Master 1">Master 1</option>
+                <option value="Master 2">Master 2</option>
+            </select>
+            <div id="classeMessage" class="message"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telephone">Numéro de téléphone:</label>
+            <input type="tel" id="telephone" name="telephone" required>
+
+            <label for="adresse">Adresse:</label>
+            <textarea id="adresse" name="adresse" rows="4" required></textarea>
+
+            <h3>INFORMATIONS TUTEURS</h3>
+            <label for="tuteur_nom">Nom:</label>
+            <input type="text" id="tuteur_nom" name="tuteur_nom" required>
+
+            <label for="tuteur_prenom">Prénom:</label>
+            <input type="text" id="tuteur_prenom" name="tuteur_prenom" required>
+
+            <label for="metier">Métier:</label>
+            <input type="text" id="metier" name="metier" required>
+
+            <label for="tuteur_email">Email:</label>
+            <input type="email" id="tuteur_email" name="tuteur_email" required>
+
+            <label for="tuteur_adresse">Adresse:</label>
+            <textarea id="tuteur_adresse" name="tuteur_adresse" rows="4" required></textarea>
+
+            <label for="tuteur_telephone">Téléphone:</label>
+            <input type="tel" id="tuteur_telephone" name="tuteur_telephone" required>
+
+            <h3>INFORMATIONS SUPPLÉMENTAIRES</h3>
+            <label for="antecedents_medicaux">Avez-vous des antécédents médicaux importants que nous devrions connaître ?</label>
+            <select id="antecedents_medicaux" name="antecedents_medicaux" onchange="showAntcedentsMessage()" required>
+                <option value="non">Non</option>
+                <option value="oui">Oui</option>
+            </select>
+            <div id="antecedentsMessage" class="message"></div>
+            <textarea id="antecedents_details" name="antecedents_details" rows="4" placeholder="Si oui, veuillez préciser..." style="display:none;"></textarea>
+
+            <label for="handicap">Avez-vous un handicap ?</label>
+            <select id="handicap" name="handicap" onchange="showHandicapMessage()" required>
+                <option value="non">Non</option>
+                <option value="oui">Oui</option>
+            </select>
+            <div id="handicapMessage" class="message"></div>
+            <textarea id="handicap_details" name="handicap_details" rows="4" placeholder="Si oui, veuillez préciser..." style="display:none;"></textarea>
+
+            <label for="activites">Quelles activités souhaiteriez-vous voir organiser par le Bureau des étudiants ?</label>
+            <textarea id="activites" name="activites" rows="4" oninput="showActivitesMessage()" required></textarea>
+            <div id="activitesMessage" class="message"></div>
+
+            <label for="activite_commerciale">Avez-vous une activité commerciale à proposer à l’institut ?</label>
+            <select id="activite_commerciale" name="activite_commerciale" onchange="showActiviteCommercialeMessage()" required>
+                <option value="non">Non</option>
+                <option value="oui">Oui</option>
+            </select>
+            <div id="activiteCommercialeMessage" class="message"></div>
+            <textarea id="activite_commerciale_details" name="activite_commerciale_details" rows="4" placeholder="Si oui, veuillez préciser..." style="display:none;"></textarea>
+
+            <button type="submit">Soumettre</button>
+        </form>
+
+        <div id="formSuccessMessage" class="message"></div>
+    </div>
+
+    <script>
+        // Affiche le message pour le prénom
+        document.getElementById("prenom").addEventListener("input", function () {
+            document.getElementById("prenomMessage").innerText = "Joli prénom 🤭";
+        });
+
+        // Affiche le message pour la classe
+        document.getElementById("classe").addEventListener("change", function () {
+            document.getElementById("classeMessage").innerText = "Bravo !";
+        });
+
+        // Affiche le message pour les antécédents médicaux
+        function showAntcedentsMessage() {
+            var antecedents = document.getElementById("antecedents_medicaux").value;
+            var details = document.getElementById("antecedents_details");
+            var message = document.getElementById("antecedentsMessage");
+
+            if (antecedents === "oui") {
+                message.innerText = "T’inquiètes pas, on est là pour t’aider, tu fais partie de la famille maintenant.";
+                details.style.display = "block";
+            } else {
+                message.innerText = "";
+                details.style.display = "none";
+            }
+        }
+
+        // Affiche le message pour le handicap
+        function showHandicapMessage() {
+            var handicap = document.getElementById("handicap").value;
+            var details = document.getElementById("handicap_details");
+            var message = document.getElementById("handicapMessage");
+
+            if (handicap === "oui") {
+                message.innerText = "Nous sommes là pour t’aider. Si tu y mets du tien, ton handicap deviendra une force.";
+                details.style.display = "block";
+            } else {
+                message.innerText = "";
+                details.style.display = "none";
+            }
+        }
+
+        // Affiche le message pour les activités proposées
+        function showActivitesMessage() {
+            var activites = document.getElementById("activites").value;
+            var message = document.getElementById("activitesMessage");
+
+            if (activites.trim() !== "") {
+                message.innerText = "Ah ouais, très intéressant ! Nous y réfléchirons, ton avis sera pris en compte 😉";
+            }
+        }
+
+        // Affiche le message pour l'activité commerciale
+        function showActiviteCommercialeMessage() {
+            var activite = document.getElementById("activite_commerciale").value;
+            var details = document.getElementById("activite_commerciale_details");
+            var message = document.getElementById("activiteCommercialeMessage");
+
+            if (activite === "oui") {
+                message.innerText = "Ah ! Voilà un jeune entrepreneur. Bonne idée ! Nous ferons de notre mieux pour t’accompagner.";
+                details.style.display = "block";
+            } else {
+                message.innerText = "";
+                details.style.display = "none";
+            }
+        }
+
+        // Affiche un message de succès après soumission
+        document.getElementById("recensement-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("formSuccessMessage").innerText = "Le BDE te remercie pour ta coopération. À plus tard chers étudiants.";
+            event.target.reset();
+        });
+    </script>
+
+</body>
+</html>
